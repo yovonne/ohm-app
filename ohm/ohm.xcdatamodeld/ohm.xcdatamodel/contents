@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Automatic">
+    <entity name="MyProductEntity" representedClassName=".MyProductEntity" syncable="YES">
+        <attribute name="authentication" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prodId" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="SearchHistoryEntity" representedClassName=".SearchHistoryEntity" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="prodId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="search_time" optional="YES" attributeType="Date" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MyProductEntity" positionX="-63" positionY="9" width="128" height="88"/>
+        <element name="SearchHistoryEntity" positionX="-225" positionY="9" width="128" height="90"/>
+    </elements>
+</model>

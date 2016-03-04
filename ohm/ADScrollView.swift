@@ -29,14 +29,17 @@ class ADScrollView : UIScrollView {
         // 间距
         let padding: CGFloat = 10.0
         
+        // 屏幕显示广告个数
+        let adCount: CGFloat = 2.0
+        
         // ad尺寸
-        let adLabelWidth: CGFloat = 160.0
+        let adLabelWidth: CGFloat = (screenWidth - padding * (1.0 + adCount)) / adCount
         let adLabelHeight: CGFloat = 40.0
         
         // 第一个标签的起点
-        var size = CGSizeMake(padding, 10)
+        var size = CGSizeMake(padding, padding)
         
-        var contentSize = CGSizeMake(screenWidth, 60.0)
+        var contentSize = CGSizeMake(screenWidth, adLabelHeight + padding * 2)
         
         for var index = 0; index < sampleData.adData.count; index++ {
             
@@ -53,6 +56,7 @@ class ADScrollView : UIScrollView {
             // 起点 增加
             size.width += adLabelWidth + padding
             
+            // 计算内容宽度
             if (size.width > contentSize.width) {
                 contentSize.width = size.width
             }

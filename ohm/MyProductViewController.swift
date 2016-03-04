@@ -147,14 +147,14 @@ class MyProductViewController: UIViewController,UITableViewDelegate,UITableViewD
         // 显示英文名称
         cell.prodENameLbl?.text = String(format: "英文名称：%@", prodInfo.objectForKey("prodEName") as! String)
         // 字体大小
-        cell.prodENameLbl?.font = UIFont.systemFontOfSize(18.0)
+        cell.prodENameLbl?.font = self.colors.tableviewcell_context_font
         // 字体颜色
         cell.prodENameLbl?.textColor = self.colors.my_products_tbcell_fontcolor
         
         // 显示类型
         cell.prodTypeLbl?.text = String(format: "类型：%@", prodInfo.objectForKey("prodType") as! String)
         // 字体大小
-        cell.prodTypeLbl?.font = UIFont.systemFontOfSize(18.0)
+        cell.prodTypeLbl?.font = self.colors.tableviewcell_context_font
         // 字体颜色
         cell.prodTypeLbl?.textColor = self.colors.my_products_tbcell_fontcolor
 

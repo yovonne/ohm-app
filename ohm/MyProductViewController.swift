@@ -94,6 +94,7 @@ class MyProductViewController: UIViewController,UITableViewDelegate,UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
+    // 返回首页
     func goHome() {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         let vc: UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("side1") as UIViewController

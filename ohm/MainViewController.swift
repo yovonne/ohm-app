@@ -12,20 +12,14 @@ import Foundation
 import SwiftHTTP
 import SwiftyJSON
 
-class MainViewController: UIViewController,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource {
+class MainViewController: BaseViewController,UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var searchBar : UISearchBar!
     @IBOutlet weak var searchTable : UITableView!
     @IBOutlet weak var initView : UIScrollView!
     @IBOutlet weak var historyTable : UITableView!
     @IBOutlet weak var recommentView : UIView!
-    @IBOutlet weak var adView : ADScrollView!
     @IBOutlet weak var loadingView: LoadingView!
-    
-    var cache: CacheUtils = CacheUtils()
-    var sampleData: SampleData = SampleData()
-    var coreDataDao: CoreDataDao = CoreDataDao()
-    var colors: Colors = Colors()
     
     // 历史记录
     var ctrlsel:[NSDictionary] = []
@@ -36,22 +30,6 @@ class MainViewController: UIViewController,UISearchBarDelegate,UITableViewDelega
     // 页面加载
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //标题栏logo设置
-        let logoimg = UIImageView(image: UIImage(named: "title-logo"))
-        logoimg.contentMode = UIViewContentMode.ScaleAspectFit
-        logoimg.frame = CGRectMake(0, 0, 40, 40)
-        self.navigationItem.titleView = logoimg
-        
-        //返回按钮
-        let leftbackBtn = UIBarButtonItem()
-        leftbackBtn.title = "返回"
-        self.navigationItem.backBarButtonItem = leftbackBtn
-        
-        // 设置背景
-        self.view.layer.contents = UIImage(named: "background")!.CGImage
-        
-        // 设置搜索框字体颜色
         
         // 设置TableView的背景色
         self.searchTable.backgroundView?.backgroundColor = UIColor.clearColor()
@@ -85,30 +63,10 @@ class MainViewController: UIViewController,UISearchBarDelegate,UITableViewDelega
         // 显示大家都在搜
         self.showRecomment()
         
-        // 显示广告
-        self.adView.showAdLabels()
-        for button: UIButton in ADScrollView.adButtons {
-            button.addTarget(self, action: Selector("adButtonClick:"), forControlEvents: UIControlEvents.TouchUpInside)
-        }
+        
     }
     
-    // 点击广告
-    func adButtonClick(button: UIButton) {        
-        //获取url
-        let url: NSString = self.sampleData.adData[button.tag].objectForKey("url") as! NSString
-        
-        if url == "" {
-            return
-        }
-        
-        //传递数据存入缓存
-        self.cache.cacheSetString("adUrl", value: url)
-        
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        let vc: UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("web") as UIViewController
-        
-        self.navigationController?.showViewController(vc, sender: nil)
-    }
+    
     
     // 通过title计算label长度
     func getSizeByString(string: NSString, font: CGFloat) ->CGSize {
@@ -283,8 +241,8 @@ class MainViewController: UIViewController,UISearchBarDelegate,UITableViewDelega
             
             self.ctrlsel = []
             self.historyTable.reloadData()
-        } catch {
-            print(error)
+        } catch let err as NSError {
+            NSLog("Error %@", err)
         }
     }
     

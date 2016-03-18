@@ -9,15 +9,9 @@
 import UIKit
 import CoreData
 
-class MyProductViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
-    
-    @IBOutlet weak var adView : ADScrollView!
+class MyProductViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource {
+
     @IBOutlet weak var myProductTable: UITableView!
-    
-    var colors: Colors = Colors()
-    var coreDataDao: CoreDataDao = CoreDataDao()
-    var sampleData: SampleData = SampleData()
-    var cache: CacheUtils = CacheUtils()
     
     // 搜索结果
     var products: [NSDictionary] = [NSDictionary]()
@@ -31,19 +25,6 @@ class MyProductViewController: UIViewController,UITableViewDelegate,UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //标题栏logo设置
-        let logoimg = UIImageView(image: UIImage(named: "title-logo"))
-        logoimg.contentMode = UIViewContentMode.ScaleAspectFit
-        logoimg.frame = CGRectMake(0, 0, 40, 40)
-        self.navigationItem.titleView = logoimg
-        
-        //返回按钮
-        let leftbackBtn = UIBarButtonItem()
-        leftbackBtn.title = "返回"
-        self.navigationItem.backBarButtonItem = leftbackBtn
-        
-        // 设置背景
-        self.view.layer.contents = UIImage(named: "background")!.CGImage
         
         // 回到主页
         let homeBtn=UIBarButtonItem(image: UIImage(named: "home-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "goHome")
@@ -68,25 +49,6 @@ class MyProductViewController: UIViewController,UITableViewDelegate,UITableViewD
         // 查询数据
         self.products = self.coreDataDao.searchMyProducts()
         
-    }
-    
-    // 点击广告
-    func adButtonClick(button: UIButton) {
-        
-        //获取url
-        let url: NSString = self.sampleData.adData[button.tag].objectForKey("url") as! NSString
-        
-        if url == "" {
-            return
-        }
-        
-        //传递数据存入缓存
-        self.cache.cacheSetString("adUrl", value: url)
-        
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        let vc: UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("web") as UIViewController
-        
-        self.navigationController?.showViewController(vc, sender: nil)
     }
     
     override func didReceiveMemoryWarning() {

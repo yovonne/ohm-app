@@ -11,7 +11,7 @@ import Foundation
 class Colors {
     
     // 半透明黑
-    let translucent_black = UIColor(hue:0, saturation:0, brightness:0.02, alpha:0.8)
+    let translucent_black = UIColor(hue:0, saturation:0, brightness:0.02, alpha:0.9)
     
     //导航栏背景色
     let nav_barTintColor = UIColor(red: 253/255, green: 174/255, blue: 15/255, alpha: 1)

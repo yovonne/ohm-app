@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		85076B2C1C7C2D5700BBC819 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85076B2B1C7C2D5700BBC819 /* ExternalAccessory.framework */; };
 		850C36461C7DCD8E00E2933C /* product-sample1.png in Resources */ = {isa = PBXBuildFile; fileRef = 850C36411C7DCD8E00E2933C /* product-sample1.png */; };
 		850C36471C7DCD8E00E2933C /* product-sample2.png in Resources */ = {isa = PBXBuildFile; fileRef = 850C36421C7DCD8E00E2933C /* product-sample2.png */; };
 		850C36481C7DCD8E00E2933C /* product-sample3.png in Resources */ = {isa = PBXBuildFile; fileRef = 850C36431C7DCD8E00E2933C /* product-sample3.png */; };
 		850C36491C7DCD8E00E2933C /* product-sample4.png in Resources */ = {isa = PBXBuildFile; fileRef = 850C36441C7DCD8E00E2933C /* product-sample4.png */; };
 		850C364A1C7DCD8E00E2933C /* product-sample5.png in Resources */ = {isa = PBXBuildFile; fileRef = 850C36451C7DCD8E00E2933C /* product-sample5.png */; };
+		851116181C9A45F500165A65 /* OhmCalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851116171C9A45F500165A65 /* OhmCalcViewController.swift */; };
+		8511161A1C9A462400165A65 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851116191C9A462400165A65 /* ViewController.swift */; };
+		8511161C1C9A484C00165A65 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8511161B1C9A484C00165A65 /* BaseViewController.swift */; };
+		8511161E1C9A857300165A65 /* BaseNoAdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8511161D1C9A857300165A65 /* BaseNoAdViewController.swift */; };
+		8515B6461C9BA62B00081C78 /* OhmCalc2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8515B6451C9BA62B00081C78 /* OhmCalc2ViewController.swift */; };
 		853BAE611C7C470A00F38C80 /* DetailImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 853BAE601C7C470A00F38C80 /* DetailImageTableViewCell.swift */; };
 		854F683D1C760F100012B2B0 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854F683C1C760F100012B2B0 /* LoadingView.swift */; };
 		855E1DD51C77739A00299EBF /* MyProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855E1DD41C77739A00299EBF /* MyProductViewController.swift */; };
@@ -51,12 +55,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		85076B2B1C7C2D5700BBC819 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		850C36411C7DCD8E00E2933C /* product-sample1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "product-sample1.png"; path = "images/product-sample1.png"; sourceTree = SOURCE_ROOT; };
 		850C36421C7DCD8E00E2933C /* product-sample2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "product-sample2.png"; path = "images/product-sample2.png"; sourceTree = SOURCE_ROOT; };
 		850C36431C7DCD8E00E2933C /* product-sample3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "product-sample3.png"; path = "images/product-sample3.png"; sourceTree = SOURCE_ROOT; };
 		850C36441C7DCD8E00E2933C /* product-sample4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "product-sample4.png"; path = "images/product-sample4.png"; sourceTree = SOURCE_ROOT; };
 		850C36451C7DCD8E00E2933C /* product-sample5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "product-sample5.png"; path = "images/product-sample5.png"; sourceTree = SOURCE_ROOT; };
+		851116171C9A45F500165A65 /* OhmCalcViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OhmCalcViewController.swift; path = ohm/OhmCalcViewController.swift; sourceTree = "<group>"; };
+		851116191C9A462400165A65 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ohm/ViewController.swift; sourceTree = "<group>"; };
+		8511161B1C9A484C00165A65 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = ohm/BaseViewController.swift; sourceTree = "<group>"; };
+		8511161D1C9A857300165A65 /* BaseNoAdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseNoAdViewController.swift; path = ohm/BaseNoAdViewController.swift; sourceTree = "<group>"; };
+		8515B6451C9BA62B00081C78 /* OhmCalc2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OhmCalc2ViewController.swift; path = ohm/OhmCalc2ViewController.swift; sourceTree = "<group>"; };
 		853BAE601C7C470A00F38C80 /* DetailImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailImageTableViewCell.swift; sourceTree = "<group>"; };
 		854F68391C7602540012B2B0 /* ohm.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ohm.entitlements; sourceTree = "<group>"; };
 		854F683C1C760F100012B2B0 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
@@ -104,7 +112,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85076B2C1C7C2D5700BBC819 /* ExternalAccessory.framework in Frameworks */,
 				85AA377A1C746C1400BDBCD3 /* SwiftyJSON.framework in Frameworks */,
 				85AA37781C746A9F00BDBCD3 /* SwiftHTTP.framework in Frameworks */,
 			);
@@ -148,6 +155,7 @@
 		85AA37641C7414F900BDBCD3 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				851116191C9A462400165A65 /* ViewController.swift */,
 				858BA78E1C775EE200520000 /* LoginViewController.swift */,
 				858E09141C71AA3C00FF5D11 /* MainViewController.swift */,
 				85AA375E1C73290800BDBCD3 /* DetailViewController.swift */,
@@ -156,6 +164,10 @@
 				855E1DD41C77739A00299EBF /* MyProductViewController.swift */,
 				8576F8F41C7BF37C00AE57E1 /* WebViewController.swift */,
 				85EDFB401C7E89BE00C9C4B7 /* ProductImageViewController.swift */,
+				851116171C9A45F500165A65 /* OhmCalcViewController.swift */,
+				8515B6451C9BA62B00081C78 /* OhmCalc2ViewController.swift */,
+				8511161B1C9A484C00165A65 /* BaseViewController.swift */,
+				8511161D1C9A857300165A65 /* BaseNoAdViewController.swift */,
 			);
 			name = ViewController;
 			path = ..;
@@ -229,7 +241,6 @@
 			isa = PBXGroup;
 			children = (
 				85AA375A1C730D6F00BDBCD3 /* ohm-Bridging-Header.h */,
-				85076B2B1C7C2D5700BBC819 /* ExternalAccessory.framework */,
 				85AA37791C746C1400BDBCD3 /* SwiftyJSON.framework */,
 				85AA37771C746A9F00BDBCD3 /* SwiftHTTP.framework */,
 			);
@@ -298,7 +309,7 @@
 								enabled = 0;
 							};
 							com.apple.WAC = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -373,6 +384,8 @@
 				853BAE611C7C470A00F38C80 /* DetailImageTableViewCell.swift in Sources */,
 				858BA78B1C775E6300520000 /* Colors.swift in Sources */,
 				855E1DDB1C77F6F000299EBF /* MyProductTableViewCell.swift in Sources */,
+				8515B6461C9BA62B00081C78 /* OhmCalc2ViewController.swift in Sources */,
+				8511161C1C9A484C00165A65 /* BaseViewController.swift in Sources */,
 				85EDFB411C7E89BE00C9C4B7 /* ProductImageViewController.swift in Sources */,
 				858BA7781C775B0400520000 /* MyProductEntity.swift in Sources */,
 				85AA375F1C73290800BDBCD3 /* DetailViewController.swift in Sources */,
@@ -380,14 +393,17 @@
 				858BA74F1C77468F00520000 /* CoreDataDao.swift in Sources */,
 				858E09081C717D0600FF5D11 /* ohm.xcdatamodeld in Sources */,
 				858BA78F1C775EE200520000 /* LoginViewController.swift in Sources */,
+				851116181C9A45F500165A65 /* OhmCalcViewController.swift in Sources */,
 				858BA7911C775F1100520000 /* OptionsViewController.swift in Sources */,
 				858BA7891C775E0500520000 /* SearchHistoryEntity+CoreDataProperties.swift in Sources */,
+				8511161E1C9A857300165A65 /* BaseNoAdViewController.swift in Sources */,
 				854F683D1C760F100012B2B0 /* LoadingView.swift in Sources */,
 				858BA7531C774EE500520000 /* Constant.swift in Sources */,
 				8576F8F51C7BF37C00AE57E1 /* WebViewController.swift in Sources */,
 				858BA7871C775CA000520000 /* SearchHistoryEntity.swift in Sources */,
 				858E09001C717D0600FF5D11 /* AppDelegate.swift in Sources */,
 				858BA77B1C775BC600520000 /* MyProductEntity+CoreDataProperties.swift in Sources */,
+				8511161A1C9A462400165A65 /* ViewController.swift in Sources */,
 				855E1DD51C77739A00299EBF /* MyProductViewController.swift in Sources */,
 				858E09151C71AA3C00FF5D11 /* MainViewController.swift in Sources */,
 				85AA37611C7337D500BDBCD3 /* CacheUtils.swift in Sources */,

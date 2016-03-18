@@ -8,30 +8,22 @@
 
 import UIKit
 
-class WebViewController: UIViewController, UIWebViewDelegate {
+class WebViewController: BaseNoAdViewController, UIWebViewDelegate {
     
     @IBOutlet var webview:UIWebView!
     @IBOutlet weak var loadingView: LoadingView!
-    var backBtn: UIBarButtonItem = UIBarButtonItem()
+    var rightbackBtn: UIBarButtonItem = UIBarButtonItem()
     var forwardBtn: UIBarButtonItem = UIBarButtonItem()
     var reloadBtn: UIBarButtonItem = UIBarButtonItem()
-    
-    var cache: CacheUtils = CacheUtils()
     
     var url: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //标题栏logo设置
-        let logoimg = UIImageView(image: UIImage(named: "title-logo"))
-        logoimg.contentMode = UIViewContentMode.ScaleAspectFit
-        logoimg.frame = CGRectMake(0, 0, 40, 40)
-        self.navigationItem.titleView = logoimg
         
-//        //返回按钮
-//        let leftbackBtn = UIBarButtonItem()
-//        leftbackBtn.title = "返回"
-//        self.navigationItem.backBarButtonItem = leftbackBtn
+        // loading image view
+        self.loadingView.create()
+        self.view.bringSubviewToFront(self.loadingView)
         
         //返回按钮
 //        let left: UIButton = UIButton(frame: CGRectMake(0, 0, 40, 40))
@@ -43,8 +35,11 @@ class WebViewController: UIViewController, UIWebViewDelegate {
 //        spacer.width = -10
 //        self.navigationItem.leftBarButtonItems = [spacer, leftbackBtn]
         
-        // 设置背景
-        self.view.layer.contents = UIImage(named: "login-background")!.CGImage
+        // 增加右侧按钮
+        self.rightbackBtn=UIBarButtonItem(image: UIImage(named: "back-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "backClicked:")
+        self.forwardBtn=UIBarButtonItem(image: UIImage(named: "forward-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "forwardClicked:")
+        self.reloadBtn=UIBarButtonItem(image: UIImage(named: "reload-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "reloadClicked:")
+        self.navigationItem.rightBarButtonItems = [self.reloadBtn,self.forwardBtn,self.rightbackBtn]
         
         // 获取地址
         self.url = cache.cacheGetString("adUrl") as String
@@ -53,17 +48,6 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         let urlobj = NSURL(string:self.url)
         let request = NSURLRequest(URL: urlobj!, cachePolicy: NSURLRequestCachePolicy.ReturnCacheDataElseLoad, timeoutInterval: 20)
         self.webview.loadRequest(request);
-        
-        // 增加右侧按钮
-        self.backBtn=UIBarButtonItem(image: UIImage(named: "back-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "backClicked:")
-        self.forwardBtn=UIBarButtonItem(image: UIImage(named: "forward-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "forwardClicked:")
-        self.reloadBtn=UIBarButtonItem(image: UIImage(named: "reload-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "reloadClicked:")
-        self.navigationItem.rightBarButtonItems = [self.reloadBtn,self.forwardBtn,self.backBtn]
-        
-        // loading image view
-        self.loadingView.create()
-        self.view.bringSubviewToFront(self.loadingView)
-        
     }
     
     //返回按钮
@@ -72,7 +56,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
 //    }
     
     func changeBarButtonStatus() {
-        self.backBtn.enabled = self.webview.canGoBack
+        self.rightbackBtn.enabled = self.webview.canGoBack
         self.forwardBtn.enabled = self.webview.canGoForward
     }
     
@@ -98,7 +82,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
         if error!.code != -999 {
-            print(String(format: "didFailLoadWithError, code(%d)", error!.code))
+            NSLog("didFailLoadWithError, code(%d)", error!.code)
             self.loadingView.stopLoading()
             self.webview.stopLoading()
             self.reloadBtn.image = UIImage(named: "reload-icon")

@@ -51,7 +51,7 @@ class OhmCalc2ViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func powerEditEnd() {
+    @IBAction func editEnd() {
         self.pickerviewtoolbar.hidden = true
         if self.batteryVText.text == "" {
             return
@@ -110,9 +110,37 @@ class OhmCalc2ViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         let powerdec: NSDecimalNumber = batteryVdec.decimalNumberByMultiplyingBy(batteryVdec).decimalNumberByDividingBy(R)
         
         let rounding: NSDecimalNumberHandler = NSDecimalNumberHandler(roundingMode: NSRoundingMode.RoundPlain, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
-        self.ohms.text = R.decimalNumberByRoundingAccordingToBehavior(rounding).stringValue
-        self.power.text = powerdec.decimalNumberByRoundingAccordingToBehavior(rounding).stringValue
+        Rdec = R.decimalNumberByRoundingAccordingToBehavior(rounding)
+        Pdec = powerdec.decimalNumberByRoundingAccordingToBehavior(rounding)
         
+        Rdecinit = NSDecimalNumber(string: "0")
+        Pdecinit = NSDecimalNumber(string: "0")
+
+        NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector:"numberToR:",userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector:"numberToP:",userInfo: nil, repeats: true)
+    }
+    
+    var Rdecinit: NSDecimalNumber = NSDecimalNumber(string: "0")
+    var Pdecinit: NSDecimalNumber = NSDecimalNumber(string: "0")
+    var Rdec: NSDecimalNumber = NSDecimalNumber(string: "0")
+    var Pdec: NSDecimalNumber = NSDecimalNumber(string: "0")
+    
+    func numberToR(tUpdate:NSTimer) {
+        Rdecinit = Rdecinit.decimalNumberByAdding(Rdec.decimalNumberByDividingBy(NSDecimalNumber(string: "20")))
+        self.ohms.text = Rdecinit.stringValue
+        if (Rdecinit.compare(Rdec) == .OrderedDescending) {
+            tUpdate.invalidate()
+            self.ohms.text = Rdec.stringValue
+        }
+    }
+    
+    func numberToP(tUpdate:NSTimer) {
+        Pdecinit = Pdecinit.decimalNumberByAdding(Pdec.decimalNumberByDividingBy(NSDecimalNumber(string: "20")))
+        self.power.text = Pdecinit.stringValue
+        if (Pdecinit.compare(Pdec) == .OrderedDescending) {
+            tUpdate.invalidate()
+            self.power.text = Pdec.stringValue
+        }
     }
     
     @IBAction func batteryVChange() {

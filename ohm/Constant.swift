@@ -8,9 +8,14 @@
 
 import Foundation
 
+// 左菜单
 let menu_options: [NSDictionary] = [
     ["title":"我的雾化器","storyboardId":"side2"],
     ["title":"我的任务","storyboardId":""],
     ["title":"关于我们","storyboardId":""],
     ["title":"数据及设备支持","storyboardId":""]
 ]
+
+// 等级经验
+let lvexps: [Int] = [0, 10, 30, 90, 270, 810]
+

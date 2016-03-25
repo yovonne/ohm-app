@@ -40,6 +40,16 @@ class Colors {
     //tableview 分割线颜色
     let tableview_separator_color = UIColor(red: 118/255, green: 135/255, blue: 190/255, alpha: 1)
     
+    //等级头像颜色
+    let lv_colors: [UIColor] = [
+        UIColor(red: 138/255, green: 138/255, blue: 140/255, alpha: 1),
+        UIColor(red: 251/255, green: 243/255, blue: 194/255, alpha: 1),
+        UIColor(red: 48/255, green: 213/255, blue: 106/255, alpha: 1),
+        UIColor(red: 60/255, green: 158/255, blue: 236/255, alpha: 1),
+        UIColor(red: 198/255, green: 63/255, blue: 244/255, alpha: 1),
+        UIColor(red: 237/255, green: 129/255, blue: 0/255, alpha: 1)
+    ]
+    
     //tableview 字体
     let tableviewcell_context_font = UIFont.systemFontOfSize(14.0)
     

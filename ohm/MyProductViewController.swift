@@ -157,5 +157,11 @@ class MyProductViewController: BaseViewController,UITableViewDelegate,UITableVie
         let prodId = self.products[sender.tag].objectForKey("prodId") as! String
         self.coreDataDao.updateMyProductsAuthentication(prodId, authentication: true)
     }
+    // 去掉多余行
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let v: UIView = UIView.init(frame: CGRectZero)
+        v.backgroundColor = UIColor.clearColor()
+        return v
+    }
     
 }

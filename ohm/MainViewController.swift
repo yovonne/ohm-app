@@ -309,5 +309,4 @@ class MainViewController: BaseViewController,UISearchBarDelegate,UITableViewDele
             size.width += keyWorldWidth + padding
         }
     }
-    
 }

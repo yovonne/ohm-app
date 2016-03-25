@@ -12,14 +12,14 @@ class LoadingView: UIImageView {
     
     func create() {
         var imgs: [UIImage]! = []
-        for var index = 0; index < 14; index++ {
+        for var index = 0; index < 17; index++ {
             let img: UIImage = UIImage(named: String(format: "loading-%d", index+1))!
             imgs.append(img)
         }
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         self.contentMode = UIViewContentMode.Center
         self.animationImages = imgs
-        self.animationDuration = 1
+        self.animationDuration = 2
         self.animationRepeatCount = 0
         self.hidden = true
         self.userInteractionEnabled = true

@@ -11,6 +11,10 @@ import SwiftyJSON
 
 class SampleData {
     
+    // 用户经验
+    let userexp: Int = 600
+    
+    // 广告
     let adData: [NSDictionary] = [
         ["title":"Cloupor","adImage":"ad1-logo.png","url":"http://www.cloupor.com/"],
         ["title":"aspire","adImage":"ad2-logo.png","url":"http://www.aspirecig.com/"],

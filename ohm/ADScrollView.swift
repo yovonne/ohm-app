@@ -21,6 +21,11 @@ class ADScrollView : UIScrollView {
     }
     
     func showAd(superview: UIView, bottomLayoutGuide: UILayoutSupport, topviews: [UIView]) {
+        
+        if sampleData.adData.count == 0 {
+            return
+        }
+        
         //屏幕尺寸
         let screenWidth = UIScreen.mainScreen().bounds.size.width
         let screenHeight = UIScreen.mainScreen().bounds.size.height

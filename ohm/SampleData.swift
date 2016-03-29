@@ -12,7 +12,7 @@ import SwiftyJSON
 class SampleData {
     
     // 用户经验
-    let userexp: Int = 600
+    let userexp: Int = 270
     
     // 广告
     let adData: [NSDictionary] = [

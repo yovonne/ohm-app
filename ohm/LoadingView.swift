@@ -12,7 +12,7 @@ class LoadingView: UIImageView {
     
     func create() {
         var imgs: [UIImage]! = []
-        for var index = 0; index < 17; index++ {
+        for index in 0 ..< 17 {
             let img: UIImage = UIImage(named: String(format: "loading-%d", index+1))!
             imgs.append(img)
         }

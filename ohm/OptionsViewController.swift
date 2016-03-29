@@ -55,23 +55,24 @@ class OptionsViewController: UIViewController,UITableViewDelegate,UITableViewDat
     // 获取等级球图片
     func calcLvImage(lv: Int) -> [UIImage] {
         var images: [UIImage] = []
-        for var index = 1; index <= lv; index++ {
+        for index in 1 ... lv {
             images.append(UIImage(named: String(format: "lv%d", index))!)
         }
-        for var index = lv + 1; index <= 6; index++ {
+        var index = lv + 1
+        while index <= 6 {
             images.append(UIImage(named: "lv0")!)
+            index += 1
         }
         return images
     }
     
     // 等级计算
     func calcLv(exp: Int) -> Int {
-        for var index = lvexps.count - 1; index >= 0; index-- {
-            if exp >= lvexps[index] {
-                return index + 1
-            }
+        var index = lvexps.count - 1
+        while exp < lvexps[index] {
+            index -= 1
         }
-        return 1
+        return index + 1
     }
     
     override func didReceiveMemoryWarning() {

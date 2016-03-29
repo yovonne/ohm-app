@@ -36,9 +36,9 @@ class WebViewController: BaseNoAdViewController, UIWebViewDelegate {
 //        self.navigationItem.leftBarButtonItems = [spacer, leftbackBtn]
         
         // 增加右侧按钮
-        self.rightbackBtn=UIBarButtonItem(image: UIImage(named: "back-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "backClicked:")
-        self.forwardBtn=UIBarButtonItem(image: UIImage(named: "forward-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "forwardClicked:")
-        self.reloadBtn=UIBarButtonItem(image: UIImage(named: "reload-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "reloadClicked:")
+        self.rightbackBtn=UIBarButtonItem(image: UIImage(named: "back-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(WebViewController.backClicked(_:)))
+        self.forwardBtn=UIBarButtonItem(image: UIImage(named: "forward-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(WebViewController.forwardClicked(_:)))
+        self.reloadBtn=UIBarButtonItem(image: UIImage(named: "reload-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(WebViewController.reloadClicked(_:)))
         self.navigationItem.rightBarButtonItems = [self.reloadBtn,self.forwardBtn,self.rightbackBtn]
         
         // 获取地址
@@ -77,7 +77,7 @@ class WebViewController: BaseNoAdViewController, UIWebViewDelegate {
         self.loadingView.stopLoading()
         self.webview.stopLoading()
         self.reloadBtn.image = UIImage(named: "reload-icon")
-        self.reloadBtn.action = "reloadClicked:"
+        self.reloadBtn.action = #selector(WebViewController.reloadClicked(_:))
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
@@ -86,7 +86,7 @@ class WebViewController: BaseNoAdViewController, UIWebViewDelegate {
             self.loadingView.stopLoading()
             self.webview.stopLoading()
             self.reloadBtn.image = UIImage(named: "reload-icon")
-            self.reloadBtn.action = "reloadClicked:"
+            self.reloadBtn.action = #selector(WebViewController.reloadClicked(_:))
             let alertController = UIAlertController(title: "网页错误！",
                 message: error!.localizedDescription,
                 preferredStyle: UIAlertControllerStyle.Alert)
@@ -101,14 +101,14 @@ class WebViewController: BaseNoAdViewController, UIWebViewDelegate {
         self.loadingView.stopLoading()
         self.changeBarButtonStatus()
         self.reloadBtn.image = UIImage(named: "reload-icon")
-        self.reloadBtn.action = "reloadClicked:"
+        self.reloadBtn.action = #selector(WebViewController.reloadClicked(_:))
     }
     
     func webViewDidStartLoad(webView: UIWebView) {
         self.loadingView.startLoading()
         self.changeBarButtonStatus()
         self.reloadBtn.image = UIImage(named: "stop-icon")
-        self.reloadBtn.action = "stopClicked:"
+        self.reloadBtn.action = #selector(WebViewController.stopClicked(_:))
     }
     
     override func didReceiveMemoryWarning() {

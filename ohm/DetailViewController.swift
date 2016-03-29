@@ -9,8 +9,8 @@
 import UIKit
 import CoreData
 import Foundation
-import SwiftHTTP
 import SwiftyJSON
+import SwiftHTTP
 
 class DetailViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -43,10 +43,10 @@ class DetailViewController: BaseViewController,UITableViewDelegate,UITableViewDa
         
         // 是否已收藏
         if self.coreDataDao.isExistMyProduct(self.prodId) {
-            let rightBtn = UIBarButtonItem(title: "取消收藏", style: UIBarButtonItemStyle.Plain, target: self, action: "deleteMyProduct")
+            let rightBtn = UIBarButtonItem(title: "取消收藏", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DetailViewController.deleteMyProduct))
             self.navigationItem.rightBarButtonItem = rightBtn
         } else {
-            let rightBtn = UIBarButtonItem(title: "收藏", style: UIBarButtonItemStyle.Plain, target: self, action: "addMyProduct")
+            let rightBtn = UIBarButtonItem(title: "收藏", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DetailViewController.addMyProduct))
             self.navigationItem.rightBarButtonItem = rightBtn
         }
     }
@@ -58,13 +58,13 @@ class DetailViewController: BaseViewController,UITableViewDelegate,UITableViewDa
     
     func deleteMyProduct() {
         self.coreDataDao.deleteMyProduct(self.prodId)
-        let rightBtn = UIBarButtonItem(title: "收藏", style: UIBarButtonItemStyle.Plain, target: self, action: "addMyProduct")
+        let rightBtn = UIBarButtonItem(title: "收藏", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DetailViewController.addMyProduct))
         self.navigationItem.setRightBarButtonItem(rightBtn, animated: true)
     }
     
     func addMyProduct() {
         self.coreDataDao.addMyProduct(self.product_info)
-        let rightBtn = UIBarButtonItem(title: "取消收藏", style: UIBarButtonItemStyle.Plain, target: self, action: "deleteMyProduct")
+        let rightBtn = UIBarButtonItem(title: "取消收藏", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DetailViewController.deleteMyProduct))
         self.navigationItem.setRightBarButtonItem(rightBtn, animated: true)
     }
     
@@ -95,7 +95,7 @@ class DetailViewController: BaseViewController,UITableViewDelegate,UITableViewDa
             cell.prodImage?.image = UIImage(named: self.product_info.objectForKey("image") as! String)
             
             // 点击动作
-            cell.jumpBtn.addTarget(self, action: "jumpClick:", forControlEvents: UIControlEvents.TouchUpInside)
+            cell.jumpBtn.addTarget(self, action: #selector(DetailViewController.jumpClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             
             // 选中颜色
             cell.selectionStyle = UITableViewCellSelectionStyle.None

@@ -41,7 +41,7 @@ class ADScrollView : UIScrollView {
         
         var contentSize = CGSizeMake(screenWidth, adLabelHeight + padding * 2)
         
-        for var index = 0; index < sampleData.adData.count; index++ {
+        for index in 0 ..< sampleData.adData.count {
             
             // 创建labels
             let button: UIButton = UIButton(frame: CGRectMake(size.width, size.height, adLabelWidth, adLabelHeight))

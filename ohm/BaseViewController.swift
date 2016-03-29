@@ -23,7 +23,7 @@ class BaseViewController: UIViewController {
         titleBtn.setImage(UIImage(named: "title-logo"), forState: UIControlState.Normal)
         titleBtn.frame = CGRectMake(0, 0, 40, 40)
         titleBtn.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
-        titleBtn.addTarget(self, action: Selector("titleButtonClick:"), forControlEvents: UIControlEvents.TouchUpInside)
+        titleBtn.addTarget(self, action: #selector(BaseViewController.titleButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = titleBtn
         
         //返回按钮
@@ -37,7 +37,7 @@ class BaseViewController: UIViewController {
         // 显示广告
         self.adView.showAdLabels()
         for button: UIButton in ADScrollView.adButtons {
-            button.addTarget(self, action: Selector("adButtonClick:"), forControlEvents: UIControlEvents.TouchUpInside)
+            button.addTarget(self, action: #selector(BaseViewController.adButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         }
     }
     

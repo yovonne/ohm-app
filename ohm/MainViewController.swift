@@ -278,7 +278,7 @@ class MainViewController: BaseViewController,UISearchBarDelegate,UITableViewDele
         //屏幕宽度
         let width = UIScreen.mainScreen().bounds.size.width - 16
         
-        for var index = 0; index < self.sampleData.labels.count; index++ {
+        for index in 0 ..< self.sampleData.labels.count {
             var label: NSString = self.sampleData.labels[index].objectForKey("prodName") as! NSString
             if label == "" {
                 label = self.sampleData.labels[index].objectForKey("prodName") as! NSString
@@ -304,7 +304,7 @@ class MainViewController: BaseViewController,UISearchBarDelegate,UITableViewDele
             button.setTitle(label as String, forState: UIControlState.Normal)
             self.recommentView.addSubview(button)
             button.tag = index
-            button.addTarget(self, action: Selector("labelsClick:"), forControlEvents: UIControlEvents.TouchUpInside)
+            button.addTarget(self, action: #selector(MainViewController.labelsClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             // 起点 增加
             size.width += keyWorldWidth + padding
         }

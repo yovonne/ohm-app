@@ -43,6 +43,7 @@
 		858E090A1C717D0600FF5D11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 858E09091C717D0600FF5D11 /* Assets.xcassets */; };
 		858E090D1C717D0600FF5D11 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 858E090B1C717D0600FF5D11 /* LaunchScreen.storyboard */; };
 		858E09151C71AA3C00FF5D11 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 858E09141C71AA3C00FF5D11 /* MainViewController.swift */; };
+		859895831CA8E56800F49092 /* DetailDiyDataTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859895821CA8E56800F49092 /* DetailDiyDataTableViewCell.swift */; };
 		85AA375C1C730D6F00BDBCD3 /* OCUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 85AA375B1C730D6F00BDBCD3 /* OCUtils.m */; };
 		85AA375F1C73290800BDBCD3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AA375E1C73290800BDBCD3 /* DetailViewController.swift */; };
 		85AA37611C7337D500BDBCD3 /* CacheUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AA37601C7337D500BDBCD3 /* CacheUtils.swift */; };
@@ -94,6 +95,7 @@
 		858E090C1C717D0600FF5D11 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		858E090E1C717D0600FF5D11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		858E09141C71AA3C00FF5D11 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MainViewController.swift; path = ohm/MainViewController.swift; sourceTree = "<group>"; };
+		859895821CA8E56800F49092 /* DetailDiyDataTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailDiyDataTableViewCell.swift; sourceTree = "<group>"; };
 		85AA37591C730D5400BDBCD3 /* OCUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OCUtils.h; path = ohm/OCUtils.h; sourceTree = "<group>"; };
 		85AA375A1C730D6F00BDBCD3 /* ohm-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "ohm-Bridging-Header.h"; path = "ohm/ohm-Bridging-Header.h"; sourceTree = "<group>"; };
 		85AA375B1C730D6F00BDBCD3 /* OCUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OCUtils.m; path = ohm/OCUtils.m; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				854F683C1C760F100012B2B0 /* LoadingView.swift */,
 				855E1DDA1C77F6F000299EBF /* MyProductTableViewCell.swift */,
 				853BAE601C7C470A00F38C80 /* DetailImageTableViewCell.swift */,
+				859895821CA8E56800F49092 /* DetailDiyDataTableViewCell.swift */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				858E09151C71AA3C00FF5D11 /* MainViewController.swift in Sources */,
 				85AA37611C7337D500BDBCD3 /* CacheUtils.swift in Sources */,
 				85D3BEE31C75971200C38654 /* SampleData.swift in Sources */,
+				859895831CA8E56800F49092 /* DetailDiyDataTableViewCell.swift in Sources */,
 				858BA78D1C775E9F00520000 /* Tools.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

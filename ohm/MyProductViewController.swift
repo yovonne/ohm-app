@@ -27,7 +27,7 @@ class MyProductViewController: BaseViewController,UITableViewDelegate,UITableVie
         super.viewDidLoad()
         
         // 回到主页
-        let homeBtn=UIBarButtonItem(image: UIImage(named: "home-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: "goHome")
+        let homeBtn=UIBarButtonItem(image: UIImage(named: "home-icon"), style: UIBarButtonItemStyle.Plain, target: self, action: #selector(MyProductViewController.goHome))
         self.navigationItem.rightBarButtonItem = homeBtn
         
         // 设置TableView的背景色
@@ -43,7 +43,7 @@ class MyProductViewController: BaseViewController,UITableViewDelegate,UITableVie
         // 显示广告
         self.adView.showAdLabels()
         for button: UIButton in ADScrollView.adButtons {
-            button.addTarget(self, action: Selector("adButtonClick:"), forControlEvents: UIControlEvents.TouchUpInside)
+            button.addTarget(self, action: #selector(MyProductViewController.authenticationClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         }
         
         // 查询数据
@@ -140,7 +140,7 @@ class MyProductViewController: BaseViewController,UITableViewDelegate,UITableVie
             cell.authenticationBtn.setImage(UIImage(named: "authentication-icon"), forState: UIControlState.Normal)
         } else {
             cell.authenticationBtn.setImage(UIImage(named: "no-authentication-icon"), forState: UIControlState.Normal)
-            cell.authenticationBtn.addTarget(self, action: "authenticationClick:", forControlEvents: UIControlEvents.TouchUpInside)
+            cell.authenticationBtn.addTarget(self, action: #selector(MyProductViewController.authenticationClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         }
         cell.authenticationBtn.tag = indexPath.row
         

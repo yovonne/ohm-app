@@ -21,7 +21,7 @@ class BaseNoAdViewController: UIViewController {
         titleBtn.setImage(UIImage(named: "title-logo"), forState: UIControlState.Normal)
         titleBtn.frame = CGRectMake(0, 0, 40, 40)
         titleBtn.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
-        titleBtn.addTarget(self, action: Selector("titleButtonClick:"), forControlEvents: UIControlEvents.TouchUpInside)
+        titleBtn.addTarget(self, action: #selector(BaseNoAdViewController.titleButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = titleBtn
         
         //返回按钮

@@ -40,14 +40,14 @@ class MyProductViewController: BaseViewController,UITableViewDelegate,UITableVie
         // 分割线
         self.myProductTable.layoutMargins = UIEdgeInsetsMake(0, 0, 0, 0)
         
-        // 显示广告
-        self.adView.showAdLabels()
-        for button: UIButton in ADScrollView.adButtons {
-            button.addTarget(self, action: #selector(MyProductViewController.authenticationClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        }
-        
         // 查询数据
         self.products = self.coreDataDao.searchMyProducts()
+        
+        // 显示广告
+        self.ad.showAd(self.view, bottomLayoutGuide: self.bottomLayoutGuide,topviews: [self.myProductTable])
+        for button: UIButton in ADScrollView.adButtons {
+            button.addTarget(self, action: #selector(self.adButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        }
         
     }
     

@@ -40,7 +40,7 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="B0J-oF-3G0" userLabel="Search Info">
-                                <rect key="frame" x="0.0" y="108" width="600" height="432"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexColor" red="0.73725490199999999" green="0.79215686269999996" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -51,7 +51,7 @@
                                 </connections>
                             </tableView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58e-RA-PMD" userLabel="Init Scroll View">
-                                <rect key="frame" x="0.0" y="108" width="600" height="432"/>
+                                <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="apc-iA-DO7" userLabel="Recomment">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="150"/>
@@ -167,23 +167,14 @@
                                     <constraint firstItem="yw9-ws-o2F" firstAttribute="leading" secondItem="58e-RA-PMD" secondAttribute="leading" id="vVa-4Q-rm2"/>
                                 </constraints>
                             </scrollView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2K0-nL-kf4" userLabel="AD Scroll View" customClass="ADScrollView" customModule="ohm" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="13h-EU-rDD"/>
-                                </constraints>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="B0J-oF-3G0" secondAttribute="trailing" id="1xQ-jA-Mnh"/>
-                            <constraint firstItem="jN6-2D-dO9" firstAttribute="top" secondItem="2K0-nL-kf4" secondAttribute="bottom" id="DUr-qK-2cr"/>
                             <constraint firstItem="Y8k-oF-oEP" firstAttribute="top" secondItem="klU-09-MyE" secondAttribute="bottom" id="Dpr-rK-7ir"/>
-                            <constraint firstItem="2K0-nL-kf4" firstAttribute="leading" secondItem="LO6-hE-xVi" secondAttribute="leading" id="ITw-7D-gZx"/>
+                            <constraint firstItem="jN6-2D-dO9" firstAttribute="top" secondItem="58e-RA-PMD" secondAttribute="bottom" identifier="adbottom" id="Lc2-C8-7EG"/>
                             <constraint firstAttribute="trailing" secondItem="58e-RA-PMD" secondAttribute="trailing" id="PPN-Qm-r8p"/>
-                            <constraint firstAttribute="trailing" secondItem="2K0-nL-kf4" secondAttribute="trailing" id="PY0-TI-VjM"/>
                             <constraint firstAttribute="trailing" secondItem="0tF-FR-US6" secondAttribute="trailing" id="Q0N-yb-yBd"/>
                             <constraint firstItem="Y8k-oF-oEP" firstAttribute="leading" secondItem="LO6-hE-xVi" secondAttribute="leading" id="V9Y-Kr-waE"/>
                             <constraint firstItem="58e-RA-PMD" firstAttribute="leading" secondItem="LO6-hE-xVi" secondAttribute="leading" id="adI-Bh-cnh"/>
@@ -191,8 +182,7 @@
                             <constraint firstItem="B0J-oF-3G0" firstAttribute="leading" secondItem="LO6-hE-xVi" secondAttribute="leading" id="eZf-Lx-5Qm"/>
                             <constraint firstItem="0tF-FR-US6" firstAttribute="top" secondItem="klU-09-MyE" secondAttribute="bottom" id="hL4-fX-mZq"/>
                             <constraint firstItem="B0J-oF-3G0" firstAttribute="top" secondItem="Y8k-oF-oEP" secondAttribute="bottom" id="iVY-ml-Ry8"/>
-                            <constraint firstItem="2K0-nL-kf4" firstAttribute="top" secondItem="B0J-oF-3G0" secondAttribute="bottom" id="ogI-eU-leQ"/>
-                            <constraint firstItem="2K0-nL-kf4" firstAttribute="top" secondItem="58e-RA-PMD" secondAttribute="bottom" id="tkp-Rx-yk3"/>
+                            <constraint firstItem="jN6-2D-dO9" firstAttribute="top" secondItem="B0J-oF-3G0" secondAttribute="bottom" identifier="adbottom" id="ksN-yi-OIL"/>
                             <constraint firstItem="jN6-2D-dO9" firstAttribute="top" secondItem="0tF-FR-US6" secondAttribute="bottom" id="vJv-4h-Fqt"/>
                             <constraint firstAttribute="trailing" secondItem="Y8k-oF-oEP" secondAttribute="trailing" id="x2H-XE-UD7"/>
                             <constraint firstItem="0tF-FR-US6" firstAttribute="leading" secondItem="LO6-hE-xVi" secondAttribute="leading" id="z8J-Co-Nhu"/>
@@ -202,7 +192,6 @@
                         <barButtonItem key="backBarButtonItem" title="返回" id="ygd-CN-cF8"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="adView" destination="2K0-nL-kf4" id="DPg-7E-CGf"/>
                         <outlet property="historyTable" destination="1v3-Kd-hee" id="zae-0Q-36S"/>
                         <outlet property="initView" destination="58e-RA-PMD" id="tcR-MZ-zyT"/>
                         <outlet property="loadingView" destination="0tF-FR-US6" id="y3i-OB-YTc"/>
@@ -228,7 +217,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gep-rY-nhE">
-                                <rect key="frame" x="0.0" y="64" width="600" height="476"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -304,31 +293,19 @@
                                     <outlet property="delegate" destination="uVN-pI-kfB" id="H3F-ev-brt"/>
                                 </connections>
                             </tableView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1a-nF-YWF" userLabel="AD Scroll View" customClass="ADScrollView" customModule="ohm" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="DCB-bs-0Sl"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="bKd-fj-oCG"/>
-                                </constraints>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="n1a-nF-YWF" firstAttribute="leading" secondItem="qhR-2i-w0J" secondAttribute="leading" id="GqQ-Yr-fOk"/>
+                            <constraint firstItem="vBh-0V-fJ8" firstAttribute="top" secondItem="gep-rY-nhE" secondAttribute="bottom" identifier="adbottom" id="0hY-YL-Nfl"/>
                             <constraint firstItem="gep-rY-nhE" firstAttribute="leading" secondItem="qhR-2i-w0J" secondAttribute="leading" id="H1h-ll-YMl"/>
                             <constraint firstAttribute="trailing" secondItem="gep-rY-nhE" secondAttribute="trailing" id="P8V-TY-LMW"/>
-                            <constraint firstItem="vBh-0V-fJ8" firstAttribute="top" secondItem="n1a-nF-YWF" secondAttribute="bottom" id="Ytv-rb-OHa"/>
-                            <constraint firstAttribute="trailing" secondItem="n1a-nF-YWF" secondAttribute="trailing" id="eQL-q8-Zc1"/>
                             <constraint firstItem="gep-rY-nhE" firstAttribute="top" secondItem="k6f-kA-nxy" secondAttribute="bottom" id="s9u-na-u42"/>
-                            <constraint firstItem="n1a-nF-YWF" firstAttribute="top" secondItem="gep-rY-nhE" secondAttribute="bottom" id="tZB-6e-Pal"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="PjV-gl-3e7">
                         <barButtonItem key="backBarButtonItem" title="返回" id="Uk1-T6-Dgv"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="adView" destination="n1a-nF-YWF" id="Euu-LC-zXv"/>
                         <outlet property="myProductTable" destination="gep-rY-nhE" id="d3f-bF-16c"/>
                     </connections>
                 </viewController>
@@ -622,15 +599,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I9C-LL-dVa" userLabel="AD Scroll View" customClass="ADScrollView" customModule="ohm" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="540" width="600" height="60"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="ysf-yu-taX"/>
-                                </constraints>
-                            </scrollView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ExG-zu-baL" userLabel="Detail Info">
-                                <rect key="frame" x="0.0" y="20" width="600" height="520"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -688,16 +658,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ExG-zu-baL" firstAttribute="top" secondItem="WtF-2G-eAD" secondAttribute="bottom" id="Rxv-aF-bRw"/>
-                            <constraint firstItem="I9C-LL-dVa" firstAttribute="leading" secondItem="d4I-f0-82b" secondAttribute="leading" id="eMe-u1-039"/>
-                            <constraint firstItem="I9C-LL-dVa" firstAttribute="top" secondItem="ExG-zu-baL" secondAttribute="bottom" id="fXb-KG-br5"/>
                             <constraint firstAttribute="trailing" secondItem="ExG-zu-baL" secondAttribute="trailing" id="hWz-E0-BO8"/>
-                            <constraint firstItem="Jlo-Za-KHf" firstAttribute="top" secondItem="I9C-LL-dVa" secondAttribute="bottom" id="mLg-gC-KtT"/>
+                            <constraint firstItem="Jlo-Za-KHf" firstAttribute="top" secondItem="ExG-zu-baL" secondAttribute="bottom" identifier="adbottom" id="qvW-Ry-0kN"/>
                             <constraint firstItem="ExG-zu-baL" firstAttribute="leading" secondItem="d4I-f0-82b" secondAttribute="leading" id="rke-at-hRu"/>
-                            <constraint firstAttribute="trailing" secondItem="I9C-LL-dVa" secondAttribute="trailing" id="zKN-cb-7zU"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="adView" destination="I9C-LL-dVa" id="ksx-HU-CKg"/>
                         <outlet property="detailTable" destination="ExG-zu-baL" id="sGy-zJ-q4H"/>
                     </connections>
                 </viewController>

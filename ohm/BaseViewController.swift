@@ -10,7 +10,7 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
-    @IBOutlet weak var adView : ADScrollView!
+    var ad: ADScrollView = ADScrollView()
     
     var cache: CacheUtils = CacheUtils()
     var sampleData: SampleData = SampleData()
@@ -33,12 +33,6 @@ class BaseViewController: UIViewController {
         
         // 设置背景
         self.view.layer.contents = UIImage(named: "background")!.CGImage
-        
-        // 显示广告
-        self.adView.showAdLabels()
-        for button: UIButton in ADScrollView.adButtons {
-            button.addTarget(self, action: #selector(BaseViewController.adButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        }
     }
     
     override func didReceiveMemoryWarning() {

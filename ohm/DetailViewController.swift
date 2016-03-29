@@ -49,6 +49,12 @@ class DetailViewController: BaseViewController,UITableViewDelegate,UITableViewDa
             let rightBtn = UIBarButtonItem(title: "收藏", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(DetailViewController.addMyProduct))
             self.navigationItem.rightBarButtonItem = rightBtn
         }
+        
+        // 显示广告
+        self.ad.showAd(self.view, bottomLayoutGuide: self.bottomLayoutGuide,topviews: [self.detailTable])
+        for button: UIButton in ADScrollView.adButtons {
+            button.addTarget(self, action: #selector(self.adButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        }
     }
     
     override func didReceiveMemoryWarning() {

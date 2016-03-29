@@ -20,6 +20,29 @@ class ADScrollView : UIScrollView {
         get { return PrefsStruct.adButtons }
     }
     
+    func showAd(superview: UIView, bottomLayoutGuide: UILayoutSupport, topviews: [UIView]) {
+        //屏幕尺寸
+        let screenWidth = UIScreen.mainScreen().bounds.size.width
+        let screenHeight = UIScreen.mainScreen().bounds.size.height
+
+        self.frame = CGRect(x: 0, y: screenHeight - 64 - 60, width: screenWidth, height: 60)
+        superview.addSubview(self)
+        for c in superview.constraints {
+            if c.identifier == "adbottom" {
+                superview.removeConstraint(c)
+            }
+        }
+//        self.addConstraint(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Height, multiplier: 1, constant: 60))
+        superview.addConstraint(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: superview, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 0))
+        superview.addConstraint(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: superview, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 0))
+//        superview.addConstraint(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: superview, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
+        for topview in topviews {
+            superview.addConstraint(NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: topview, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: 0))
+        }
+        
+        showAdLabels()
+    }
+    
     // 显示广告
     func showAdLabels() {
         
@@ -35,11 +58,17 @@ class ADScrollView : UIScrollView {
         // ad尺寸
         let adLabelWidth: CGFloat = (screenWidth - padding * (1.0 + adCount)) / adCount
         let adLabelHeight: CGFloat = 40.0
+
+        // 计算内容宽度
+        var contentSize = CGSizeMake(((adLabelWidth + padding) * CGFloat(Float(sampleData.adData.count)) + padding), adLabelHeight + padding * 2)
+        if contentSize.width < screenWidth {
+            contentSize = CGSizeMake(screenWidth, adLabelHeight + padding * 2)
+        }
+        
+        self.contentSize = contentSize
         
         // 第一个标签的起点
         var size = CGSizeMake(padding, padding)
-        
-        var contentSize = CGSizeMake(screenWidth, adLabelHeight + padding * 2)
         
         for index in 0 ..< sampleData.adData.count {
             
@@ -56,14 +85,7 @@ class ADScrollView : UIScrollView {
             // 起点 增加
             size.width += adLabelWidth + padding
             
-            // 计算内容宽度
-            if (size.width > contentSize.width) {
-                contentSize.width = size.width
-            }
-            
             PrefsStruct.adButtons!.append(button)
         }
-        
-        self.contentSize = contentSize
     }
 }

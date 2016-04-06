@@ -42,7 +42,7 @@ class OhmCalc2ViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func editEnd() {
+    @IBAction func powerEditEnd() {
         self.pickerviewtoolbar.hidden = true
         if self.batteryVText.text == "" {
             return
@@ -58,6 +58,11 @@ class OhmCalc2ViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         let rounding: NSDecimalNumberHandler = NSDecimalNumberHandler(roundingMode: NSRoundingMode.RoundPlain, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
         let dec: NSDecimalNumber = NSDecimalNumber(double: self.batteryVBtn.value)
         self.batteryVText.text = dec.decimalNumberByRoundingAccordingToBehavior(rounding).stringValue
+        calcPower()
+    }
+    
+    @IBAction func editEnd() {
+        self.pickerviewtoolbar.hidden = true
         calc()
     }
     
@@ -80,7 +85,7 @@ class OhmCalc2ViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         let p: NSDecimalNumber = NSDecimalNumber(string: self.materialOhms.text)
         let paralleldec: NSDecimalNumber = NSDecimalNumber(int: (self.parallel.selectedSegmentIndex + 1))
         let batteryVdec: NSDecimalNumber = NSDecimalNumber(string: self.batteryVText.text)
-        let R = calcR(p, n: n, d: d, D1: D1, paralleldec: paralleldec)
+        let R = calcR(p, n: n, d: d, D1: D1, parallel: paralleldec)
         let powerdec = calcP(batteryVdec, R: R)
         
         let rounding: NSDecimalNumberHandler = NSDecimalNumberHandler(roundingMode: NSRoundingMode.RoundPlain, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
@@ -90,17 +95,46 @@ class OhmCalc2ViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         Rdecinit = NSDecimalNumber(string: "0")
         Pdecinit = NSDecimalNumber(string: "0")
 
-        NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector:#selector(OhmCalc2ViewController.numberToR(_:)),userInfo: nil, repeats: true)
-        NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector:#selector(OhmCalc2ViewController.numberToP(_:)),userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(ti / times, target: self, selector:#selector(OhmCalc2ViewController.numberToR(_:)),userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(ti / times, target: self, selector:#selector(OhmCalc2ViewController.numberToP(_:)),userInfo: nil, repeats: true)
     }
     
+    @IBAction func calcPower() {
+        self.batteryVText.resignFirstResponder()
+        self.diameterText.resignFirstResponder()
+        self.boreText.resignFirstResponder()
+        if self.batteryVText.text == "" || self.diameterText.text == "" || self.boreText.text == "" {
+            return
+        }
+        
+        let n: NSDecimalNumber = NSDecimalNumber(string: self.turns.text)
+        let d: NSDecimalNumber = NSDecimalNumber(string: self.diameterText.text)
+        let D1: NSDecimalNumber = NSDecimalNumber(string: self.boreText.text)
+        let p: NSDecimalNumber = NSDecimalNumber(string: self.materialOhms.text)
+        let paralleldec: NSDecimalNumber = NSDecimalNumber(int: (self.parallel.selectedSegmentIndex + 1))
+        let batteryVdec: NSDecimalNumber = NSDecimalNumber(string: self.batteryVText.text)
+        let R = calcR(p, n: n, d: d, D1: D1, parallel: paralleldec)
+        let powerdec = calcP(batteryVdec, R: R)
+        
+        let rounding: NSDecimalNumberHandler = NSDecimalNumberHandler(roundingMode: NSRoundingMode.RoundPlain, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
+        Rdec = R.decimalNumberByRoundingAccordingToBehavior(rounding)
+        Pdec = powerdec.decimalNumberByRoundingAccordingToBehavior(rounding)
+        
+        Rdecinit = NSDecimalNumber(string: "0")
+        Pdecinit = NSDecimalNumber(string: "0")
+
+        NSTimer.scheduledTimerWithTimeInterval(ti / times, target: self, selector:#selector(OhmCalc2ViewController.numberToP(_:)),userInfo: nil, repeats: true)
+    }
+    
+    let ti: NSTimeInterval = 0.1
+    let times: Double = 5.0
     var Rdecinit: NSDecimalNumber = NSDecimalNumber(string: "0")
     var Pdecinit: NSDecimalNumber = NSDecimalNumber(string: "0")
     var Rdec: NSDecimalNumber = NSDecimalNumber(string: "0")
     var Pdec: NSDecimalNumber = NSDecimalNumber(string: "0")
     
     func numberToR(tUpdate:NSTimer) {
-        Rdecinit = Rdecinit.decimalNumberByAdding(Rdec.decimalNumberByDividingBy(NSDecimalNumber(string: "20")))
+        Rdecinit = Rdecinit.decimalNumberByAdding(Rdec.decimalNumberByDividingBy(NSDecimalNumber(double: times)))
         self.ohms.text = Rdecinit.stringValue
         if (Rdecinit.compare(Rdec) == .OrderedDescending) {
             tUpdate.invalidate()
@@ -109,7 +143,7 @@ class OhmCalc2ViewController: UIViewController,UIPickerViewDelegate,UIPickerView
     }
     
     func numberToP(tUpdate:NSTimer) {
-        Pdecinit = Pdecinit.decimalNumberByAdding(Pdec.decimalNumberByDividingBy(NSDecimalNumber(string: "20")))
+        Pdecinit = Pdecinit.decimalNumberByAdding(Pdec.decimalNumberByDividingBy(NSDecimalNumber(double: times)))
         self.power.text = Pdecinit.stringValue
         if (Pdecinit.compare(Pdec) == .OrderedDescending) {
             tUpdate.invalidate()
@@ -122,7 +156,7 @@ class OhmCalc2ViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         let rounding: NSDecimalNumberHandler = NSDecimalNumberHandler(roundingMode: NSRoundingMode.RoundPlain, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: false)
         let dec: NSDecimalNumber = NSDecimalNumber(double: self.batteryVBtn.value)
         self.batteryVText.text = dec.decimalNumberByRoundingAccordingToBehavior(rounding).stringValue
-        calc()
+        calcPower()
     }
     
     @IBAction func turnsChange() {

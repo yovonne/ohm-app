@@ -13,6 +13,92 @@ class CoreDataDao {
     
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+    func deleteUserInfo() {
+        let context = delegate.managedObjectContext
+        do {
+            let request = NSFetchRequest(entityName: "UserInfoEntity")
+            let userInfoEntitys = try context.executeFetchRequest(request)
+            if userInfoEntitys.count > 0 {
+                for one in userInfoEntitys {
+                    context.deleteObject(one as! NSManagedObject)
+                }
+                try context.save()
+            }
+        } catch let err as NSError {
+            NSLog("Error %@", err)
+        }
+    }
+    
+    //编辑我的信息
+    func addorupdateUserInfo(userInfo: NSDictionary) {
+        let context = delegate.managedObjectContext
+        do {
+            let access_token = userInfo.objectForKey("access_token") as! String
+            let profile_image_url = userInfo.objectForKey("profile_image_url") as! String
+            let refresh_token = userInfo.objectForKey("refresh_token") as! String
+            let screen_name = userInfo.objectForKey("screen_name") as! String
+            let uid = userInfo.objectForKey("uid") as! String
+            
+            let request = NSFetchRequest(entityName: "UserInfoEntity")
+
+            let userInfoEntitys = try context.executeFetchRequest(request)
+            if userInfoEntitys.count > 0 {
+                for one in userInfoEntitys {
+                    let userInfoEntity: UserInfoEntity = one as! UserInfoEntity
+                    userInfoEntity.access_token = access_token
+                    userInfoEntity.profile_image_url = profile_image_url
+                    userInfoEntity.refresh_token = refresh_token
+                    userInfoEntity.screen_name = screen_name
+                    userInfoEntity.uid = uid
+                    userInfoEntity.login_type = "Weibo"
+                }
+                
+            } else {
+                let userInfoEntitys = NSEntityDescription.entityForName("UserInfoEntity", inManagedObjectContext: context)
+                
+                let userInfoEntity = UserInfoEntity(entity: userInfoEntitys!, insertIntoManagedObjectContext: context)
+
+                userInfoEntity.access_token = access_token
+                userInfoEntity.profile_image_url = profile_image_url
+                userInfoEntity.refresh_token = refresh_token
+                userInfoEntity.screen_name = screen_name
+                userInfoEntity.uid = uid
+                userInfoEntity.login_type = "Weibo"
+            }
+            
+            try context.save()
+        } catch let err as NSError {
+            NSLog("Error %@", err)
+        }
+    }
+    
+    //查询我的信息
+    func searchUserInfo() -> NSDictionary? {
+        let context = delegate.managedObjectContext
+        var result: NSDictionary?
+        do {
+            let request = NSFetchRequest(entityName: "UserInfoEntity")
+            let userInfoEntitys = try context.executeFetchRequest(request)
+            if userInfoEntitys.count > 0 {
+                for one in userInfoEntitys {
+                    let userInfo = one as! UserInfoEntity
+                    result = NSDictionary()
+                    result = [
+                        "access_token": userInfo.access_token!,
+                        "profile_image_url": userInfo.profile_image_url!,
+                        "refresh_token": userInfo.refresh_token!,
+                        "screen_name": userInfo.screen_name!,
+                        "uid": userInfo.uid!
+                    ]
+                }
+            }
+        } catch let err as NSError {
+            NSLog("Error %@", err)
+        }
+        return result
+    }
+    
+    //我要认证
     func updateMyProductsAuthentication(prodId: String, authentication: Bool) {
         let context = delegate.managedObjectContext
         do {
@@ -27,8 +113,8 @@ class CoreDataDao {
                 }
                 try context.save()
             }
-        } catch {
-            print(error)
+        } catch let err as NSError {
+            NSLog("Error %@", err)
         }
     }
     
@@ -47,8 +133,8 @@ class CoreDataDao {
                     "authentication": product.authentication
                 ])
             }
-        } catch {
-            print(error)
+        } catch let err as NSError {
+            NSLog("Error %@", err)
         }
         return result
     }
@@ -64,8 +150,8 @@ class CoreDataDao {
             if productEntity.count > 0 {
                 result = true
             }
-        } catch {
-            print(error)
+        } catch let err as NSError {
+            NSLog("Error %@", err)
         }
         return result
     }
@@ -83,8 +169,8 @@ class CoreDataDao {
                 }
                 try context.save()
             }
-        } catch {
-            print(error)
+        } catch let err as NSError {
+            NSLog("Error %@", err)
         }
     }
     
@@ -113,8 +199,8 @@ class CoreDataDao {
                 
                 try context.save()
             }
-        } catch {
-            print(error)
+        } catch let err as NSError {
+            NSLog("Error %@", err)
         }
     }
     
@@ -131,8 +217,8 @@ class CoreDataDao {
                 let history = one as? SearchHistoryEntity
                 result.append(["prodId":history!.prodId!,"prodName":history!.name!])
             }
-        } catch {
-            print(error)
+        } catch let err as NSError {
+            NSLog("Error %@", err)
         }
         return result
     }
@@ -177,12 +263,8 @@ class CoreDataDao {
             
             try context.save()
             
-            
-            
-            
-            
-        } catch {
-            print(error)
+        } catch let err as NSError {
+            NSLog("Error %@", err)
         }
     }
 }

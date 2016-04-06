@@ -11,14 +11,132 @@ import CoreData
 import Foundation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate, WBHttpRequestDelegate {
+    
+    var wbtoken: String?
+    var wbCurrentUserID: String?
+    var wbRefreshToken: String?
+    
+    var requestFlag: WBRequestFlag = WBRequestFlag.Init
 
     var window: UIWindow?
 
     let colors: Colors = Colors()
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        return WeiboSDK.handleOpenURL(url, delegate: self)
+    }
+    
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        return WeiboSDK.handleOpenURL(url, delegate: self)
+    }
+    
+    func didReceiveWeiboRequest(request: WBBaseRequest!) {
+        
+    }
+    
+    func didReceiveWeiboResponse(response: WBBaseResponse!) {
+        if let authorizeResponse = response as? WBAuthorizeResponse {
+            if authorizeResponse.statusCode == WeiboSDKResponseStatusCode.Success {
+                self.wbtoken = authorizeResponse.accessToken;
+                self.wbCurrentUserID = authorizeResponse.userID;
+                self.wbRefreshToken = authorizeResponse.refreshToken;
+                getUserInfo()
+            }
+        }
+    }
+    
+    func getUserInfo() {
+        self.requestFlag = WBRequestFlag.UsersShow
+        let params: [NSObject : AnyObject] = ["uid":self.wbCurrentUserID!]
+        let _: WBHttpRequest = WBHttpRequest(accessToken: self.wbtoken, url: wb_users_show, httpMethod: "GET", params: params, delegate: self, withTag: "getUserInfo")
+    }
+    
+    func checkAccessToken() {
+        let coreDataDao: CoreDataDao = CoreDataDao()
+        let userInfo: NSDictionary? = coreDataDao.searchUserInfo()
+        if userInfo != nil {
+            self.wbCurrentUserID = userInfo?.objectForKey("uid")  as? String
+            self.wbRefreshToken = userInfo?.objectForKey("refresh_token") as? String
+            self.wbtoken = userInfo?.objectForKey("access_token") as? String
+            
+            self.requestFlag = WBRequestFlag.CheckAccessToken
+            let params: [NSObject : AnyObject] = [
+                "access_token":self.wbtoken!
+            ]
+            let _: WBHttpRequest = WBHttpRequest(URL: wb_get_token_info, httpMethod: "POST", params: params, delegate: self, withTag: "checkAccessToken")
+        }
+    }
+    
+    func getAccessToken() {
+        self.requestFlag = WBRequestFlag.AccessToken
+        let params: [NSObject : AnyObject] = [
+            "client_id":kAppKey,
+            "client_secret":kAppSecret,
+            "grant_type":"refresh_token",
+            "redirect_uri":kRedirectURI,
+            "refresh_token":self.wbRefreshToken!
+        ]
+        let _: WBHttpRequest = WBHttpRequest(URL: wb_access_token, httpMethod: "POST", params: params, delegate: self, withTag: "getAccessToken")
+    }
+    
+    func showMainView() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let vc: UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("side1") as UIViewController
+        self.window?.rootViewController!.presentViewController(vc, animated: true, completion: nil)
+    }
+    
+    func request(request: WBHttpRequest!, didFinishLoadingWithDataResult data: NSData!) {
+        do {
+            let json: NSDictionary? = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary
+            if (json == nil) {
+                NSLog("%@", "response json nil")
+                return
+            }
+            let errorcode = json?.objectForKey("error_code") as? String
+            let error = json?.objectForKey("error") as? String
+            if errorcode != nil {
+                NSLog("error code: %@, tag: %@, error: %@", [errorcode, request.tag, error])
+                return
+            }
+            switch self.requestFlag {
+            case WBRequestFlag.UsersShow:
+                let userInfo: NSDictionary = [
+                    "access_token": self.wbtoken!,
+                    "profile_image_url": json!.objectForKey("profile_image_url") as! String,
+                    "refresh_token": self.wbRefreshToken!,
+                    "screen_name": json!.objectForKey("screen_name") as! String,
+                    "uid": self.wbCurrentUserID!
+                ]
+                let coreDataDao: CoreDataDao = CoreDataDao()
+                coreDataDao.addorupdateUserInfo(userInfo)
+                showMainView()
+            case WBRequestFlag.AccessToken:
+                self.wbtoken = json?.objectForKey("access_token") as? String
+                self.wbCurrentUserID = json?.objectForKey("uid") as? String
+                getUserInfo()
+            case WBRequestFlag.CheckAccessToken:
+                let expire_in = json?.objectForKey("expire_in") as? Int
+                print(expire_in)
+                if expire_in > 3600 {
+                    showMainView()
+                } else {
+                    getAccessToken()
+                }
+            default: break
+            }
+            
+        } catch let err as NSError {
+            NSLog("Error %@", err)
+        }
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // 注册微博
+        WeiboSDK.enableDebugMode(true)
+        WeiboSDK.registerApp(kAppKey)
         
         SideMenuController.menuButtonImage = UIImage(named: "menu-icon")
         SideMenuController.presentationStyle = .UnderCenterPanelLeft

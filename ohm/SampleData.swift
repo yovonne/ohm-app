@@ -76,13 +76,22 @@ class SampleData {
         ["支持配件","2","parts"],
         ["内阻","2","ohm"],
         ["主观数据","1",""],
-        ["diy数据","2","diyData"],
+        ["diy数据","3","diyData"],
         ["diy难度","2","diyDifficult"],
         ["diy视频","2","diyVideo"],
         ["稀有度（在售/停售/限量）","2","unusualRate"],
         ["支持者信息","1",""],
         ["","2","dataOwner"]
     ]
+    
+    let detailDiyData: [NSDictionary] = [
+        ["prodId":"P0003","diyData":["22G-3.0-5","22G-3.0-6","22G-3.0-7","24G-3.0-6","24G-3.0-7"]],
+        ["prodId":"P0004","diyData":["22G-3.0-5","22G-3.0-6","22G-3.0-7","24G-3.0-6","24G-3.0-7"]],
+        ["prodId":"P0005","diyData":["24G双丝并饶-3.5-5"]],
+        ["prodId":"P0006","diyData":[]],
+        ["prodId":"P0007","diyData":["22G-3.0-5","22G-3.0-6"]]
+    ]
+    
     
     let detailData: [NSDictionary] = [
             ["image":"product-sample1.png","prodId":"P0003","prodName":"拖船 V.2","prodEName":"Tug Boat V.2","prodType":"滴油","parts":"短舱,大进气滴嘴,510接口滴嘴","ohm":"可忽略","diyData":"22G-3.0-5,22G-3.0-6,22G-3.0-7,24G-3.0-6,24G-3.0-7","diyDifficult":"Ω Ω Ω","diyVideo":"","unusualRate":"在售","parc":"","dataOwner":"数据由陈弢提供"],
@@ -107,7 +116,7 @@ class SampleData {
 //            ["image":"product-sample.png","prodId":"P00022","prodName":"舢板","prodEName":"Dinghy ","prodType":"滴油","parts":"短舱,大进气滴嘴,510接口滴嘴","ohm":"","diyData":"22G-3.0-5,22G-3.0-6,22G-3.0-7,24G-3.0-6,24G-3.0-7","diyDifficult":"Ω Ω Ω","diyVideo":"","unusualRate":"在售","parc":"","dataOwner":"数据由闻喆提供"]
     ]
     
-    func getDetailProductInfo(prodId: String) -> NSDictionary{
+    func getDetailProductInfo(prodId: String) -> NSDictionary {
         var product_info: NSDictionary = NSDictionary()
         for info in self.detailData {
             if info.objectForKey("prodId") as? NSString == prodId {
@@ -116,6 +125,17 @@ class SampleData {
             }
         }
         return product_info
+    }
+    
+    func getDetailProductDiyInfo(prodId: String) -> NSDictionary {
+        var diy_info: NSDictionary = NSDictionary()
+        for info in self.detailDiyData {
+            if info.objectForKey("prodId") as? NSString == prodId {
+                diy_info = info
+                break
+            }
+        }
+        return diy_info
     }
 
 }

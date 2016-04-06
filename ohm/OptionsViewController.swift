@@ -14,10 +14,12 @@ class OptionsViewController: UIViewController,UITableViewDelegate,UITableViewDat
     @IBOutlet weak var lvView: UIStackView!
     @IBOutlet weak var userIcon: UIButton!
     @IBOutlet weak var userIconBack: UIButton!
+    @IBOutlet weak var userName: UILabel!
 
     var colors: Colors = Colors()
     var cache: CacheUtils = CacheUtils()
     var sampleData: SampleData = SampleData()
+    var coreDataDao: CoreDataDao = CoreDataDao()
     
     var lv: Int = 0
     
@@ -50,6 +52,29 @@ class OptionsViewController: UIViewController,UITableViewDelegate,UITableViewDat
         self.userIconBack.layer.shadowOffset = CGSize(width: 2, height: 2)
         self.userIconBack.layer.shadowColor = self.colors.lv_colors[lv - 1].CGColor
         self.userIconBack.layer.shadowOpacity = 0.8
+        
+        let userInfo: NSDictionary? = self.coreDataDao.searchUserInfo()
+        if userInfo != nil {
+            self.userName.text = userInfo!.objectForKey("screen_name") as? String
+            let iconurl = userInfo!.objectForKey("profile_image_url") as? String
+            let iconImg = UIImage(data: NSData(contentsOfURL: NSURL(string: iconurl!)!)!)
+            UIGraphicsBeginImageContext(CGSize(width: 60, height: 60))
+            iconImg?.drawInRect(CGRect(x: 0, y: 0, width: 60, height: 60))
+            let resizeIconImg = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.userIcon.setImage(resizeIconImg, forState: UIControlState.Normal)
+            self.userIcon.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+            self.userIcon.imageView?.layer.cornerRadius = 30
+        }
+    }
+    
+    // 注销
+    @IBAction func logout() {
+        self.coreDataDao.deleteUserInfo()
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let vc: UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("login") as UIViewController
+        self.presentViewController(vc, animated: true, completion: nil)
+        self.sideMenuController()?.performSegueWithIdentifier(CenterSegue, sender: nil)
     }
     
     // 获取等级球图片
@@ -137,4 +162,6 @@ class OptionsViewController: UIViewController,UITableViewDelegate,UITableViewDat
             self.sideMenuController()?.performSegueWithIdentifier(CenterSegue, sender: nil)
         }
     }
+    
+
 }

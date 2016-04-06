@@ -8,6 +8,24 @@
 
 import Foundation
 
+//com.sina.weibo.SNWeiboSDKDemo
+let kAppKey = "1190104810"
+let kAppSecret = "90454bcb2d9799670d5a4339a77ce32e"
+let kRedirectURI = "https://api.weibo.com/oauth2/default.html"
+
+//微博请求地址
+let wb_users_show = "https://api.weibo.com/2/users/show.json"
+let wb_access_token = "https://api.weibo.com/oauth2/access_token"
+let wb_get_token_info = "https://api.weibo.com/oauth2/get_token_info"
+
+//微博请求区分
+enum WBRequestFlag {
+    case Init
+    case UsersShow
+    case AccessToken
+    case CheckAccessToken
+}
+
 // 左菜单
 let menu_options: [NSDictionary] = [
     ["title":"我的雾化器","storyboardId":"side2"],

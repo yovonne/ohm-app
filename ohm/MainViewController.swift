@@ -68,6 +68,7 @@ class MainViewController: BaseViewController,UISearchBarDelegate,UITableViewDele
         for button: UIButton in ADScrollView.adButtons {
             button.addTarget(self, action: #selector(self.adButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         }
+
     }
 
     // 通过title计算label长度

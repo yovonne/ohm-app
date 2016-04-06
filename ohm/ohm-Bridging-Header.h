@@ -4,3 +4,4 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "OCUtils.h"
+#import "WeiboSDK.h"

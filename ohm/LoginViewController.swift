@@ -14,6 +14,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var weiboBtn: UIButton!
     
     var colors: Colors = Colors()
+    var coreDataDao: CoreDataDao = CoreDataDao()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,12 +26,23 @@ class LoginViewController: UIViewController {
         
         // 设置微博按钮
         self.weiboBtn.layer.shadowColor =  self.colors.login_weibo_shadow_color
+        
+        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        delegate.checkAccessToken()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         
+    }
+    
+    @IBAction func weiboLogin() {
+        let request: WBAuthorizeRequest = WBAuthorizeRequest()
+        request.redirectURI = kRedirectURI
+        request.scope = "all"
+        request.userInfo = ["SSO_From": "LoginViewController"]
+        WeiboSDK.sendRequest(request)
     }
     
     @IBAction func buttonAction() {

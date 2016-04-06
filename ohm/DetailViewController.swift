@@ -23,6 +23,8 @@ class DetailViewController: BaseViewController,UITableViewDelegate,UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        expandedIndexpaths = []
+        
         // 数据
         self.prodId = self.cache.cacheGetString("searchkey") as String
         self.product_info = self.sampleData.getDetailProductInfo(self.prodId)
@@ -78,9 +80,11 @@ class DetailViewController: BaseViewController,UITableViewDelegate,UITableViewDa
         return self.sampleData.detail_titles.count
     }
     
+    var expandedIndexpaths:[NSIndexPath]!
+    var diyrowheight: CGFloat = 0
+    
     // 设定TableViewCell
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         if indexPath.row == 0 {
             var cell: DetailImageTableViewCell!
             
@@ -118,6 +122,106 @@ class DetailViewController: BaseViewController,UITableViewDelegate,UITableViewDa
             cell.layoutMargins = UIEdgeInsetsZero
             
             return cell
+        } else if indexPath.row == 8 {
+            
+            var cell: DetailDiyDataTableViewCell!
+            
+            // 为了提供表格显示性能，已创建完成的单元需重复使用
+            let identify:String = "DetailDiyDataCell"
+            
+            // 同一形式的单元格重复使用，在声明时已注册
+            cell = tableView.dequeueReusableCellWithIdentifier(identify, forIndexPath: indexPath) as! DetailDiyDataTableViewCell
+            
+            if (cell == nil) {
+                cell = DetailDiyDataTableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: identify)
+            }
+            
+            cell.containerView.layer.masksToBounds = true
+            
+            let values: [String] = self.sampleData.getDetailProductDiyInfo(self.prodId).objectForKey("diyData") as! [String]
+            
+            //屏幕宽度
+            let screenWidth = UIScreen.mainScreen().bounds.size.width - 30
+            
+            // 间距
+            let padding = CGSizeMake(8, 8)
+            
+            let lblsize = CGSizeMake(screenWidth - 30 - padding.width, 30)
+            let btnsize = CGSizeMake(30, 30)
+            
+            // 第一个标签的起点
+            var size = CGSizeMake(0, lblsize.height + padding.height)
+            for value in values {
+                let valuelbl = UILabel(frame: CGRect(x: size.width, y: size.height, width: lblsize.width, height: lblsize.height))
+                valuelbl.text = value
+                valuelbl.font = self.colors.tableviewcell_context_font
+                valuelbl.textColor = self.colors.detail_tbcell_fontcolor
+                let btn = UIButton(frame: CGRect(x: screenWidth - btnsize.width, y: size.height, width: btnsize.width, height: btnsize.height))
+                btn.setImage(UIImage(named: "no-good"), forState: UIControlState.Normal)
+                btn.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
+                btn.tag = 0
+                btn.addTarget(self, action: #selector(self.goodClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+                                
+                cell.containerView.addSubview(valuelbl)
+                cell.containerView.addSubview(btn)
+
+                size.height = size.height + padding.height + btnsize.height
+            }
+            self.diyrowheight = CGFloat(Float(values.count + 1)) * (btnsize.height + padding.height)
+            
+            if values.count == 0 {
+                cell.isExpandable = false
+                cell.constrainViewHeight = lblsize.height
+            } else if values.count > 0 && values.count < 3  {
+                cell.isExpandable = false
+                cell.constrainViewHeight = self.diyrowheight
+            } else {
+                cell.isExpandable = true
+                
+                if  expandedIndexpaths.contains(indexPath) {
+                    cell.constrainViewHeight = self.diyrowheight
+                    cell.expanded  = true
+                }else {
+                    cell.constrainViewHeight = (btnsize.height + padding.height) * 3
+                    cell.expanded  = false
+                }
+            }
+            
+            cell.expandClosure = {() -> Void in
+                if !cell.expanded! {
+                    self.expandedIndexpaths.append(indexPath)
+                }else{
+                    let index = self.expandedIndexpaths.indexOf(indexPath)
+                    self.expandedIndexpaths.removeAtIndex(index!)
+                }
+                let offset: CGPoint = tableView.contentOffset
+                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                tableView.setContentOffset(offset, animated: true)
+            }
+            
+            cell.addInfo = {() -> Void in
+                let mainStoryboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                let vc: UIViewController = mainStoryboard.instantiateViewControllerWithIdentifier("calc2") as UIViewController
+                vc.modalPresentationStyle = UIModalPresentationStyle.OverFullScreen
+                self.presentViewController(vc, animated: true, completion: nil)
+            }
+            
+            // 选中颜色
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            
+            // 背景色设定
+            cell.contentView.backgroundColor = UIColor.clearColor()
+            cell.backgroundColor = UIColor.clearColor()
+            cell.containerView.backgroundColor = UIColor.clearColor()
+            
+            // 最右边箭头图标
+            cell.accessoryType = UITableViewCellAccessoryType.None
+            
+            // 分割线
+            cell.separatorInset = UIEdgeInsetsZero
+            cell.layoutMargins = UIEdgeInsetsZero
+            
+            return cell
         } else {
             let cell: UITableViewCell!
             
@@ -130,12 +234,9 @@ class DetailViewController: BaseViewController,UITableViewDelegate,UITableViewDa
             if self.sampleData.detail_titles[indexPath.row][1] == "1" {
                 cell.textLabel?.font = self.colors.tableviewcell_title_font
                 cell.textLabel?.text = self.sampleData.detail_titles[indexPath.row][0]
-            } else {
+            } else if self.sampleData.detail_titles[indexPath.row][1] == "2" {
                 let title = self.sampleData.detail_titles[indexPath.row][0]
-                var value = self.product_info.objectForKey(self.sampleData.detail_titles[indexPath.row][2]) as! String
-                if (value as NSString).containsString(",") {
-                    value = "\n    " + value.stringByReplacingOccurrencesOfString(",", withString: "\n    ", options: NSStringCompareOptions.LiteralSearch, range: nil)
-                }
+                let value = self.product_info.objectForKey(self.sampleData.detail_titles[indexPath.row][2]) as! String
                 cell.textLabel?.font = self.colors.tableviewcell_context_font
                 if title == "" {
                     cell.textLabel?.text = value
@@ -165,6 +266,16 @@ class DetailViewController: BaseViewController,UITableViewDelegate,UITableViewDa
             cell.layoutMargins = UIEdgeInsetsZero
             
             return cell
+        }
+    }
+    
+    func goodClick(sender: UIButton) {
+        if sender.tag == 0 {
+            sender.setImage(UIImage(named: "good"), forState: UIControlState.Normal)
+            sender.tag = 1
+        } else {
+            sender.tag = 0
+            sender.setImage(UIImage(named: "no-good"), forState: UIControlState.Normal)
         }
     }
     

@@ -63,11 +63,11 @@ class MainViewController: BaseViewController,UISearchBarDelegate,UITableViewDele
         // 显示大家都在搜
         self.showRecomment()
         
-        // 显示广告
-        self.ad.showAd(self.view, bottomLayoutGuide: self.bottomLayoutGuide,topviews: [self.initView, self.searchTable])
-        for button: UIButton in ADScrollView.adButtons {
-            button.addTarget(self, action: #selector(self.adButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        }
+//        // 显示广告
+//        self.ad.showAd(self.view, bottomLayoutGuide: self.bottomLayoutGuide,topviews: [self.initView, self.searchTable])
+//        for button: UIButton in ADScrollView.adButtons {
+//            button.addTarget(self, action: #selector(self.adButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        }
 
     }
 

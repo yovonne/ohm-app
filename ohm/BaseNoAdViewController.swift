@@ -31,6 +31,9 @@ class BaseNoAdViewController: UIViewController {
         
         // 设置背景
         self.view.layer.contents = UIImage(named: "background")!.CGImage
+        
+        // 状态栏文字颜色
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
     }
     
     override func didReceiveMemoryWarning() {

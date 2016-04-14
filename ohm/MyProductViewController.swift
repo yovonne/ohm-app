@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import MessageUI
 
-class MyProductViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource {
+class MyProductViewController: BaseViewController,UITableViewDelegate,UITableViewDataSource,MFMailComposeViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
     @IBOutlet weak var myProductTable: UITableView!
     
@@ -43,11 +44,11 @@ class MyProductViewController: BaseViewController,UITableViewDelegate,UITableVie
         // 查询数据
         self.products = self.coreDataDao.searchMyProducts()
         
-        // 显示广告
-        self.ad.showAd(self.view, bottomLayoutGuide: self.bottomLayoutGuide,topviews: [self.myProductTable])
-        for button: UIButton in ADScrollView.adButtons {
-            button.addTarget(self, action: #selector(self.adButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
-        }
+//        // 显示广告
+//        self.ad.showAd(self.view, bottomLayoutGuide: self.bottomLayoutGuide,topviews: [self.myProductTable])
+//        for button: UIButton in ADScrollView.adButtons {
+//            button.addTarget(self, action: #selector(self.adButtonClick(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+//        }
         
     }
     
@@ -151,12 +152,81 @@ class MyProductViewController: BaseViewController,UITableViewDelegate,UITableVie
         return cell
     }
     
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        self.dismissViewControllerAnimated(true, completion:nil);
+        let gotImage=info[UIImagePickerControllerOriginalImage] as! UIImage
+        //首先要判断设备具不具备发送邮件功能
+        if MFMailComposeViewController.canSendMail(){
+            let controller = MFMailComposeViewController()
+            //设置代理
+            controller.mailComposeDelegate = self
+            //设置主题
+            controller.setSubject("我要认证")
+            //设置收件人
+            controller.setToRecipients(["services@ohmtogether.com"])
+            //            //设置抄送人
+            //            controller.setCcRecipients(["b1@hangge.com","b2@hangge.com"])
+            //            //设置密送人
+            //            controller.setBccRecipients(["c1@hangge.com","c2@hangge.com"])
+            
+            //添加图片附件
+            var myData = UIImagePNGRepresentation(gotImage)
+            if myData == nil {
+                myData = UIImageJPEGRepresentation(gotImage, 1)
+            }
+            controller.addAttachmentData(myData!, mimeType: "", fileName: "swift.png")
+            
+            //设置邮件正文内容（支持html）
+            controller.setMessageBody("我是邮件正文", isHTML: false)
+            
+            //打开界面
+            self.presentViewController(controller, animated: true, completion: nil)
+        }else{
+            print("本设备不能发送邮件")
+        }
+    }
+    
     // 我要认证点击事件
     func authenticationClick(sender: UIButton) {
-        sender.setImage(UIImage(named: "authentication-icon"), forState: UIControlState.Normal)
-        let prodId = self.products[sender.tag].objectForKey("prodId") as! String
-        self.coreDataDao.updateMyProductsAuthentication(prodId, authentication: true)
+        btn = sender
+        //创建图片控制器
+        let picker = UIImagePickerController()
+        //设置代理
+        picker.delegate = self
+        //设置来源
+        picker.sourceType = UIImagePickerControllerSourceType.Camera
+        //允许编辑
+        picker.allowsEditing = true
+        //打开相机
+        self.presentViewController(picker, animated: true, completion: { () -> Void in
+            
+        })
     }
+    
+    var btn: UIButton?
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        self.dismissViewControllerAnimated(true, completion:nil);
+        switch result.rawValue {
+        case MFMailComposeResultSent.rawValue:
+            print("邮件已发送")
+        case MFMailComposeResultCancelled.rawValue:
+            print("邮件已取消")
+        case MFMailComposeResultSaved.rawValue:
+            print("邮件已保存")
+        case MFMailComposeResultFailed.rawValue:
+            print("邮件发送失败")
+        default:
+            print("邮件没有发送")
+            break
+        }
+        if result.rawValue == MFMailComposeResultSent.rawValue {
+            btn!.setImage(UIImage(named: "authentication-icon"), forState: UIControlState.Normal)
+            let prodId = self.products[btn!.tag].objectForKey("prodId") as! String
+            self.coreDataDao.updateMyProductsAuthentication(prodId, authentication: true)
+        }
+    }
+    
     // 去掉多余行
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let v: UIView = UIView.init(frame: CGRectZero)

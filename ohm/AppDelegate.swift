@@ -144,6 +144,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate, WBHttpR
         SideMenuController.panningEnabled = false
         SideMenuController.swipingEnabled = false
         
+        
         UINavigationBar.appearance().translucent = false
         UINavigationBar.appearance().barTintColor = self.colors.nav_barTintColor
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
@@ -197,7 +198,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WeiboSDKDelegate, WBHttpR
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("SingleViewCoreData.sqlite")
         var failureReason = "There was an error creating or loading the application's saved data."
         do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+//            NSDictionary *optionsDictionary = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES],
+//                NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES],
+//                NSInferMappingModelAutomaticallyOption, nil];
+            let optionsDictionary: [NSObject : AnyObject] = [NSMigratePersistentStoresAutomaticallyOption:NSNumber(bool:true),NSInferMappingModelAutomaticallyOption:NSNumber(bool:true)]
+            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: optionsDictionary)
         } catch {
             // Report any error we got.
             var dict = [String: AnyObject]()
